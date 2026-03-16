@@ -1,0 +1,470 @@
+1. Entendimento do Problema
+
+O projeto Indicar Pneus é uma aplicação web Full-Stack cujo objetivo é:
+Permitir cadastro de clientes
+Permitir cadastro de veículos do cliente
+Permitir cadastro de pneus que o cliente utiliza
+Utilizar dados técnicos de veículos para indicar o pneu ideal
+
+O sistema terá:
+Back-end Python (FastAPI)
+Front-end Web (Streamlit)
+Banco de dados relacional (SQLite via SQLAlchemy)
+CRUD de clientes e informações relacionadas.
+
+Além disso:
+O sistema deve ajudar o cliente a escolher pneus adequados, pois muitos usuários não sabem qual pneu comprar.
+
+2. O software é praticável ou implementável?
+Sim, o software é totalmente implementável.
+Existem três fatores técnicos que tornam isso viável.
+
+2.1 Disponibilidade de dados automotivos
+Existem bases de dados públicas ou comerciais contendo:
+Marca
+Modelo
+Ano
+Motorização
+Medidas de pneus
+Fontes possíveis:
+
+Fonte	Tipo
+FIPE	dados de veículos
+API Tabela FIPE	API pública
+Kaggle datasets	datasets automotivos
+bases de fabricantes	medidas técnicas
+2.2 Dados de pneus
+As dimensões seguem um padrão universal.
+
+Exemplo:
+205/55 R16 91V
+
+Onde:
+205 = largura
+55 = perfil
+R16 = aro
+91 = índice de carga
+V = velocidade
+
+Logo é possível fazer regras de recomendação automatizadas.
+
+2.3 Tecnologia escolhida
+A stack do README é adequada:
+Backend
+FastAPI
+SQLAlchemy
+Pydantic
+Frontend
+Streamlit
+Banco
+SQLite (inicial)
+Arquitetura simples e adequada para MVP.
+
+3. O que é necessário para enunciar os requisitos
+Para levantar requisitos corretamente são necessários alguns artefatos e atividades.
+
+3.1 Levantamento com stakeholders
+Entrevistas com:
+gestores da empresa
+equipe de vendas
+clientes
+especialistas em pneus
+
+Justificativa:
+Entender:
+como clientes escolhem pneus
+quais dúvidas possuem
+quais informações precisam
+
+3.2 Benchmark
+
+Analisar sistemas existentes:
+Pneustore
+Pirelli
+
+Michelin
+
+Mercado Livre (busca por veículo)
+
+Justificativa:
+
+Evitar reinventar soluções.
+
+3.3 Modelagem de domínio
+
+Identificar entidades principais:
+
+Cliente
+
+Veículo
+
+Pneus
+
+Fabricante
+
+Modelo
+
+Histórico de quilometragem
+
+Justificativa:
+
+Estrutura correta do banco de dados.
+
+3.4 Casos de uso
+
+Definir:
+
+cadastro
+
+consulta
+
+recomendação
+
+relatórios
+
+Justificativa:
+
+traduzir necessidades em funcionalidades.
+
+3.5 Regras de negócio
+
+Exemplo:
+
+Veículos possuem pneus específicos
+
+Pneus têm limites de carga e velocidade
+
+Recomendação depende do tipo de uso
+
+Justificativa:
+
+base do algoritmo de recomendação.
+
+4. Requisitos Funcionais
+RF01 – Cadastro de Clientes
+
+O sistema deve permitir cadastrar clientes contendo:
+
+nome
+
+email
+
+status (ativo/inativo)
+
+RF02 – Cadastro de Veículos
+
+O sistema deve permitir cadastrar veículos contendo:
+
+marca
+
+modelo
+
+ano
+
+motorização
+
+categoria (SUV, sedan, hatch etc)
+
+RF03 – Base de Dados Automotiva
+
+O sistema deve possuir base com:
+
+todas as marcas
+
+todos os modelos
+
+anos
+
+para facilitar a seleção.
+
+RF04 – Cadastro de Pneus do Cliente
+
+O sistema deve permitir registrar:
+
+tipo de pneu
+
+marca
+
+medida
+
+data de instalação
+
+quilometragem atual
+
+RF05 – Recomendação de Pneus
+
+O sistema deve sugerir pneus baseando-se em:
+
+veículo
+
+tipo de uso
+
+medidas recomendadas
+
+RF06 – Consulta de Pneus
+
+O usuário deve poder pesquisar pneus por:
+
+marca
+
+modelo de veículo
+
+medida
+
+RF07 – Histórico de Quilometragem
+
+O sistema deve permitir registrar:
+
+KM atual
+
+KM do pneu
+
+para estimar desgaste.
+
+RF08 – Relatórios
+
+O sistema deve gerar relatórios como:
+
+pneus recomendados
+
+pneus instalados
+
+troca prevista
+
+RF09 – Interface de Consulta
+
+O sistema deve permitir ao usuário descobrir o pneu correto apenas informando:
+
+marca
+
+modelo
+
+ano do veículo
+
+5. Requisitos Não Funcionais
+RNF01 – Desempenho
+
+O sistema deve responder consultas em menos de 2 segundos.
+
+RNF02 – Escalabilidade
+
+Arquitetura deve permitir migração futura para:
+
+PostgreSQL
+
+Cloud
+
+RNF03 – Segurança
+
+Dados dos clientes devem estar protegidos.
+
+Exemplo:
+
+criptografia
+
+autenticação
+
+RNF04 – Usabilidade
+
+Interface deve ser simples para usuários leigos.
+
+RNF05 – Disponibilidade
+
+Sistema deve ter disponibilidade mínima de 99%.
+
+RNF06 – Manutenibilidade
+
+Código deve seguir boas práticas:
+
+Clean Architecture
+
+Documentação
+
+6. Modelo Conceitual de Dados (Simplificado)
+
+Entidades principais:
+
+Cliente
+   |
+   |--- possui --- Veículo
+                      |
+                      |--- utiliza --- Pneus
+
+Outras entidades:
+
+FabricanteVeiculo
+ModeloVeiculo
+AnoVeiculo
+FabricantePneu
+ModeloPneu
+MedidaPneu
+7. Algoritmo de Recomendação (conceito)
+
+A recomendação pode usar regras simples.
+
+Exemplo:
+
+1️⃣ Identificar veículo
+
+Marca
+Modelo
+Ano
+
+2️⃣ Consultar tabela técnica
+
+Veículo → Medida recomendada
+
+3️⃣ Filtrar pneus disponíveis
+
+marca
+preço
+avaliação
+
+4️⃣ Retornar melhores opções
+
+8. Estimativa de Tempo
+
+Para um MVP acadêmico ou inicial.
+
+Etapa	Tempo
+Levantamento de requisitos	2 semanas
+Modelagem de dados	1 semana
+Construção da base automotiva	2 semanas
+Backend API	3 semanas
+Frontend	3 semanas
+Algoritmo recomendação	2 semanas
+Testes	2 semanas
+
+Tempo total:
+
+13 semanas (~3 meses)
+
+9. Estimativa de Custo
+
+Considerando equipe pequena.
+
+Equipe:
+
+1 desenvolvedor backend
+
+1 desenvolvedor frontend
+
+1 analista de requisitos
+
+Horas estimadas:
+
+500 horas
+
+Valor médio:
+
+R$120/h
+
+Custo aproximado:
+
+R$60.000
+
+Projeto mais robusto poderia chegar a:
+
+R$150.000 – R$300.000
+10. Validação dos Requisitos
+
+A validação garante que o sistema atende a necessidade do negócio.
+
+Métodos:
+
+10.1 Revisão com Stakeholders
+
+Reuniões para verificar:
+
+se requisitos fazem sentido
+
+se algo está faltando
+
+10.2 Protótipo
+
+Criar protótipos de tela.
+
+Ferramentas:
+
+Figma
+
+Streamlit
+
+Usuários testam antes do desenvolvimento completo.
+
+10.3 Casos de Teste
+
+Criar cenários:
+
+Exemplo:
+
+Caso:
+
+Usuário possui Corolla 2018
+
+Resultado esperado:
+
+Sistema recomenda pneu 205/55 R16
+10.4 Testes de Aceitação
+
+Usuários finais testam o sistema.
+
+Checklist:
+
+cadastro funciona
+
+recomendação funciona
+
+consultas funcionam
+
+11. Riscos do Projeto
+Risco	Mitigação
+falta de base automotiva	usar API FIPE
+dados incorretos	validação
+recomendação errada	revisão técnica
+escalabilidade	arquitetura modular
+12. Melhorias Futuras
+
+O sistema pode evoluir para:
+
+IA de recomendação
+
+app mobile
+
+integração com lojas
+
+comparação de preços
+
+previsão de desgaste
+
+13. Conclusão
+
+O projeto Indicar Pneus é tecnicamente viável e tem valor real de mercado.
+
+Ele resolve um problema comum:
+
+usuários não sabem qual pneu comprar.
+
+Com:
+
+base automotiva
+
+cadastro de veículos
+
+algoritmo de recomendação
+
+é possível criar um sistema funcional, escalável e útil.
+
+Se quiser, posso também te entregar:
+
+Modelo UML completo
+
+Diagrama de banco de dados
+
+User Stories no padrão Scrum
+
+Arquitetura ideal para esse projeto
+
+Estrutura da base de dados de veículos (importável)
+
+Isso deixaria seu trabalho muito mais forte para apresentação acadêmica ou projeto real.

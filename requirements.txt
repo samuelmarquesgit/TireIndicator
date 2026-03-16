@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+streamlit
+pandas
+httpx
+pytest
+requests
+python-dotenv
+email-validator
