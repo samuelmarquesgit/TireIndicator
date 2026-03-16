@@ -44,6 +44,21 @@ SCTEC/
 └── README.md             # Esta documentação central descritiva do projeto tecnológico
 ```
 
+## 🗺️ Roadmap de Desenvolvimento Futuro (2026)
+O **Tirindicator** foi concebido para evoluir de um MVP para um ecossistema completo. Nosso planejamento estratégico está dividido em três fases:
+
+### 🔹 Fase 1: Segurança e Acesso
+- **Autenticação JWT**: Proteção de dados sensíveis e login seguro.
+- **Perfis de Usuário**: Diferenciação entre clientes e administradores do sistema.
+
+### 🔹 Fase 2: Inteligência de Dados
+- **Integração em Tempo Real**: Conexão com Marketplaces (ex: PneuStore) para cotação de preços.
+- **Algoritmo de Desgaste**: Predição da vida útil baseada na KM média mensal registrada.
+
+### 🔹 Fase 3: Mobilidade e Expansão
+- **Aplicativo Mobile**: Foco em rapidez para o motorista registrar a KM e ver alertas.
+- **Marketplace Interno**: Compra direta de pneus recomendados via link de afiliados.
+
 ## ⚙️ Instruções Necessárias para a sua Execução
 
 Para garantir o funcionamento perfeito deste sistema, se assegure de ter a versão mínima de `Python 3.10+` instalada na máquina e visível pela variável `PATH` do sistema.
@@ -52,7 +67,7 @@ Para garantir o funcionamento perfeito deste sistema, se assegure de ter a vers�
 
 1. Abra um terminal de sua preferência (ex: PowerShell) e adentre a pasta clonada do framework:
    ```powershell
-   cd \caminho\onde\voce\baixou\o\SCTEC
+   cd \caminho\onde\voce\baixou\o\Tirindicator
    ```
 
 2. Crie e ative a bolha de isolamento de virtualização (Virtual Environment):
